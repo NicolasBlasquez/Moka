@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOKA</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
+
+        ::-webkit-scrollbar {
+            background-color: var(--primary);
+            width: 0.8vw;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--ternary);
+            border-radius: 1rem;
+        }
+
+        :root {
+            --dark: #282037;
+            --primary: #AD917F;
+            --secondary: #543946;
+            --font: #FBFAEB;
+        }
+
+        body {
+            margin: 0;
+            font-family: Roboto;
+            color: var(--font);
+            background-color: var(--dark);
+        }
+
+        * {
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header {
+            aspect-ratio: 1;
+            background-image: url("Assets/fondo.svg");
+            padding: 7.5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header h1 {
+            font-family: "Playfair Display";
+            font-size: 18vw;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin: 0 0.8rem;
+            padding-bottom: 1rem;
+        }
+
+        nav label {
+            border: solid var(--font) 1px;
+            border-radius: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8rem;
+            line-height: 0.8rem;
+            transition: ease-in-out 0.2s;
+        }
+
+        nav label:has(:checked) {
+            background-color: var(--font);
+            color: var(--dark);
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .categoryDiv {
+            display: none;
+            padding: 1rem;
+        }
+
+        @keyframes tilt {
+            0% {
+                rotate: 0deg;
+            }
+
+            50% {
+                rotate: 15deg;
+            }
+
+            100% {
+                rotate: 0deg;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                translate: 0 0vw;
+            }
+
+            0% {
+                translate: 0 0.5vw;
+            }
+
+            0% {
+                translate: 0 0vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+    </header>
+    <nav>
+        <label for="home">
+            Inicio
+            <input type="radio" id="home" name="categoryChips">
+        </label>
+        <label for="aboutus">
+            Acerca de
+            <input type="radio" id="aboutus" name="categoryChips">
+        </label>
+        <label for="products">
+            Products
+            <input type="radio" id="products" name="categoryChips">
+        </label>
+    </nav>
+    
+
+    <div class="home categoryDiv">
+        Bienvenido a Moka!
+    </div>
+
+    <div class="aboutus categoryDiv">
+        AboutUs
+    </div>
+
+    <div class="products categoryDiv">
+        Products
+    </div>
+
+    <script>
+        const categoryChips = document.querySelectorAll("nav label input");
+        const categoryDivs = document.querySelectorAll(".categoryDiv");
+
+        for (let i = 0; i < categoryChips.length; i++) {
+            categoryChips[i].addEventListener("input", e => {
+                categoryDivs.forEach(e => {
+                    e.style.display = "none";
+                })
+                categoryDivs[i].style.display = "flex";
+            });
+        }
+    </script>
+
+</body>
+
+</html>
