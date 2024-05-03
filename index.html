@@ -109,13 +109,6 @@
     </nav>
 
     <div class="home categoryDiv">
-        <div class="product">
-            <div class="productName">
-                <h1>Budín</h1>
-                <h3>1263</h3>
-            </div>
-            <p>Disponibles de vainilla, chocolate, limón y mandarina</p>
-        </div>
     </div>
 
     <div class="aboutus categoryDiv">
@@ -127,24 +120,31 @@
     </div>
 
     <div class="products categoryDiv">
-        <div class="product">
-            <div class="productName">
-                <h1>Budín</h1>
-                <h3>1263</h3>
-            </div>
-            <p>Disponibles de vainilla, chocolate, limón y mandarina</p>
-        </div>
-        <div class="product">
-            <div class="productName">
-                <h1>Chocotorta</h1>
-                <h3>1943</h3>
-            </div>
-            <p>Un clásico argentino</p>
-        </div>
     </div>
 
-    <script src="Assets/Scripts/functions.js"></script>
     <script>
+
+        function GET(url, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", function () {
+                if (xhr.status == 200) {
+                    callback(xhr.response);
+                } else throw new Error(`Failed Connection`);
+            });
+            xhr.open("GET", url);
+            xhr.send(null);
+        }
+
+        function loadImage(url) {
+            const i = new Image();
+            i.src = url;
+        }
+
+        function printProduct(product) {
+            let container = Object.assign(document.createElement("div"), { classList: ["product"], innerHTML: `<div class="productName"><h1>${product[0][0]}</h1><h3>${product[0][4]}</h3></div><p>${product[0][5]}</p>` });
+            return container;
+        }
+
         const HOME = document.querySelector(".home");
         const PRODUCTS = document.querySelector(".products");
 
@@ -182,7 +182,11 @@
             products.forEach(p => {
                 PRODUCTS.append(printProduct(p));
             })
-        })
+        });
+
+        loadImage("Assets/Img/box.svg");
+        loadImage("Assets/Img/person.svg");
+        loadImage("Assets/Img/house.svg");
     </script>
 
 </body>
