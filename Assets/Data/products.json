@@ -1,0 +1,29 @@
+{
+    "products": [
+        {
+            "name": "Budín",
+            "ingredients": [
+                "Huevos",
+                "Harina Leudante",
+                "Azúcar",
+                "Aceite",
+                "Leche",
+                "Esencia de Vainilla",
+                "Limón"
+            ],
+            "price": 1263,
+            "description": "Disponibles de vainilla&comma; chocolate&comma; limón y mandarina"
+        },
+        {
+            "name": "Chocotorta",
+            "ingredients": [
+                "Chocolinas",
+                "Crema",
+                "Dulce de Leche",
+                "Café"
+            ],
+            "price": 1943,
+            "description": "Un clásico argentino"
+        }
+    ]
+}

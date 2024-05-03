@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKA</title>
 
+    <link rel="stylesheet" href="Assets/Scripts/sections.css">
+    <link rel="stylesheet" href="Assets/Scripts/products.css">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
 
@@ -34,14 +37,15 @@
         }
 
         * {
+            background-position: center;
             background-size: contain;
             background-repeat: no-repeat;
         }
 
         header {
-            aspect-ratio: 1;
+            height: 40vh;
             background-image: url("Assets/Img/fondo.svg");
-            padding: 7.5%;
+            margin: 5% 0 0 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -50,32 +54,6 @@
         header h1 {
             font-family: "Playfair Display";
             font-size: 18vw;
-        }
-
-        .chips {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            margin: 0 0.8rem;
-            padding-bottom: 1rem;
-            justify-content: center;
-        }
-
-        .chips label {
-            border: solid var(--font) 1px;
-            border-radius: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0.35rem 0.75rem;
-            font-size: 0.8rem;
-            line-height: 0.8rem;
-            transition: ease-in-out 0.2s;
-        }
-
-        .chips label:has(:checked) {
-            background-color: var(--font);
-            color: var(--dark);
         }
 
         input[type="radio"] {
@@ -88,101 +66,69 @@
             padding: 2rem;
         }
 
-        .home {
-            display: flex;
-            align-items: stretch;
-        }
-
-        .productDiv {
-            border: solid #fff5 1px;
-            padding: 1rem;
-            border-radius: 1rem;
-        }
-
         .moreSoon {
             text-align: center;
             opacity: 0.5;
             margin-top: 1.5rem;
         }
 
-        .aboutus .grid {
-            display: grid;
-            grid-template-columns: minmax();
-        }
-
-        .productName {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .productName h1, h3 {
-            margin: 0.5rem 0;
-        }
-
         .introduction {
             margin-top: 0;
         }
 
-        .socialMedia {
-            padding: 1rem;
-            display: flex;
-            justify-content: center;
+        .instagram {
+            position: absolute;
+            aspect-ratio: 1;
+            width: 2rem;
+            margin: 1rem;
+            top: 0;
+            right: 0;
+            background-image: url("Assets/Img/instragram.svg");
         }
 
-        .socialMedia img {
-            height: 3rem;
+        .home {
+            display: flex;
         }
     </style>
 </head>
 
 <body>
+    <a class="instagram" href="https://www.instagram.com/moka_.jm/"></a>
     <header>
     </header>
     <nav class="chips">
-        <label for="home">
-            Inicio
+        <label for="home" class="homeIcon">
             <input type="radio" id="home" name="categoryChips" checked>
         </label>
-        <label for="aboutus">
-            Acerca de
+        <label for="aboutus" class="aboutusIcon">
             <input type="radio" id="aboutus" name="categoryChips">
         </label>
-        <label for="products">
-            Productos
+        <label for="products" class="productsIcon">
             <input type="radio" id="products" name="categoryChips">
         </label>
     </nav>
-    
 
     <div class="home categoryDiv">
-        <!-- Productos -->
-        <div class="productDiv">
-            <div class="productName"><h1>Budines</h1><h3>$3,788</h3></div>
-            <p>De limón, chocolate y mandarina</p>
-        </div>
+
     </div>
 
     <div class="aboutus categoryDiv">
         <div>
-            <p class="introduction">Moka es un emprendimiento de repostería creado para brindar productos de calidad y accesibles</p>
+            <p class="introduction">Moka es un emprendimiento de repostería creado para brindar productos de calidad y
+                accesibles</p>
             <p>Fue creado el 3 de abril de 2024</p>
         </div>
-        <nav class="socialMedia">
-            <a href="https://www.instagram.com/moka._jm/"><img src="Assets/Img/instragram.svg"></a>
-        </nav>
     </div>
 
     <div class="products categoryDiv">
-        <div class="productDiv">
-            <div class="productName"><h1>Budines</h1><h3>$3,788</h3></div>
-            <p>De limón, chocolate y mandarina</p>
-        </div>
-        <h3 class="moreSoon">¡Más productos proximamente!</h1>
+
     </div>
-    
+
     <script src="Assets/Scripts/functions.js"></script>
     <script>
+        const HOME = document.querySelector(".home");
+        const PRODUCTS = document.querySelector(".products");
+
         const categoryChips = document.querySelectorAll("nav label input");
         const categoryDivs = document.querySelectorAll(".categoryDiv");
 
@@ -194,10 +140,27 @@
                 categoryDivs[i].style.display = "flex";
             });
         }
+
         GET("https://docs.google.com/spreadsheets/d/e/2PACX-1vRq4nNGK6JJ7dz-UpfU_qgHzvf7vCUUr589X-uQI6_faqNQMRpe-k5OZy8uYExd7A/pub?gid=798208207&single=true&output=csv", data => {
-            console.log(data);
-            console.log(data.split("\r\n").forEach(e => e = e.split(",")))
-            
+            data = data.split("\r\n");
+
+            let headers = data.shift().split(",");
+            let rows = [];
+            let products = [];
+
+            data.forEach(r => {
+                let row = r.split(",");
+                rows = [...rows, row];
+                if (row[0]) { products = [...products, [row]] }
+                if (row[0] != products[products.length - 1][0][0]) {
+                    products[products.length - 1].push(row);
+                }
+            })
+
+            HOME.innerHTML = printProduct(products[0]);
+            products.forEach(p => {
+                PRODUCTS.append(printProduct(p));
+            })
         })
     </script>
 
