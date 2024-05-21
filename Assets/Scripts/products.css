@@ -18,7 +18,3 @@
 .productName h1 {
     margin: 0.5rem 0;
 }
-
-.productName h3::before {
-    content: "$";
-}

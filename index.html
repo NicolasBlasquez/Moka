@@ -64,6 +64,7 @@
             display: none;
             flex-direction: column;
             padding: 2rem;
+            margin-bottom: 3rem;
         }
 
         .moreSoon {
@@ -138,10 +139,13 @@
         function loadImage(url) {
             const i = new Image();
             i.src = url;
+            i.addEventListener("load", () => {
+                
+            })
         }
 
         function printProduct(product) {
-            let container = Object.assign(document.createElement("div"), { classList: ["product"], innerHTML: `<div class="productName"><h1>${product[0][0]}</h1><h3>${product[0][4]}</h3></div><p>${product[0][5]}</p>` });
+            let container = Object.assign(document.createElement("div"), { classList: ["product"], innerHTML: `<div class="productName"><h1>${product[0][0]}</h1></div><p>${product[0][5]}</p>` });
             return container;
         }
 
@@ -184,9 +188,9 @@
             })
         });
 
-        loadImage("Assets/Img/box.svg");
-        loadImage("Assets/Img/person.svg");
-        loadImage("Assets/Img/house.svg");
+        loadImage("Assets/Img/box-fill.svg");
+        loadImage("Assets/Img/person-fill.svg");
+        loadImage("Assets/Img/house-fill.svg");
     </script>
 
 </body>
