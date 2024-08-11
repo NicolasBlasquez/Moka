@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
+
+:root {
+    --dark: #282037;
+    --primary: #AD917F;
+    --secondary: #543946;
+    --font: #FBFAEB;
+
+    font-family: Roboto;
+    color: var(--font);
+    background-color: var(--dark);
+}
+
+body {
+    margin: 0 0 5.5rem 0;
+}
+
+* {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.loadingIcon::after {
+    content: "";
+    width: 3rem;
+    aspect-ratio: 1;
+    display: none;
+    animation: tilt 1s ease-in-out infinite;
+    background-image: url('../assets/cupcake.svg');
+    background-size: contain;
+    position: absolute;
+    left: calc(50% - 1.5rem);
+}
+
+.loadingIcon:empty::after {
+    display: flex;
+}
